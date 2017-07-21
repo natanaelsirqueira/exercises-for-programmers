@@ -1,4 +1,4 @@
-defmodule TodoListController do
+defmodule TodoList.TodoListController do
   use TodoList.Web, :controller
 
   def list(conn, _params) do
