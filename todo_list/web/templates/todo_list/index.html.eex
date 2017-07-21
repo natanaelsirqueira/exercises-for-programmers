@@ -1,0 +1,11 @@
+<h1>My TodoList</h1>
+
+<table class="table">
+  <%= for task <- @tasks do %>
+    <tr>
+      <td><%= task.description %></td>
+      <td><%= button("done", method: "get", class: "btn",
+        to: todo_list_path(@conn, :done, task.id)) %></td>
+    </tr>
+  <% end %>
+</table>
