@@ -3,20 +3,20 @@ defmodule TodoList.TodoListController do
   alias TodoList.Task
 
   def index(conn, _params) do
-    tasks = Repo.all(TodoList.Task)
-    changeset = Task.changeset(%Task{})
-    render(conn, "index.html", tasks: tasks, changeset: changeset)
+    render_index_with(conn, Task.changeset(%Task{}))
   end
 
-  def create(conn, %{"task" => description}) do
-    changeset = Task.changeset(%Task{}, description)
+  def create(conn, %{"task" => task_params}) do
+    changeset = Task.changeset(%Task{}, task_params)
     case Repo.insert(changeset) do
       {:ok, task} ->
         conn
         |> put_flash(:info, "Task '#{task.description}' created.")
         |> redirect(to: todo_list_path(conn, :index))
       {:error, changeset} ->
-        index(conn, changeset)
+        conn
+        |> put_flash(:error, "You must enter a description!")
+        |> render_index_with(changeset)
     end
   end
 
@@ -28,5 +28,10 @@ defmodule TodoList.TodoListController do
     conn
     |> put_flash(:info, "Task deleted successfully.")
     |> redirect(to: todo_list_path(conn, :index))
+  end
+
+  defp render_index_with(conn, changeset) do
+    tasks = Repo.all(TodoList.Task)
+    render(conn, "index.html", tasks: tasks, changeset: changeset)
   end
 end
