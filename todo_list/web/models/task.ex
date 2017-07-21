@@ -6,4 +6,10 @@ defmodule TodoList.Task do
 
     timestamps()
   end
+
+  def changeset(task, params \\ %{}) do
+    task
+    |> cast(params, [:description])
+    |> validate_required([:description])
+  end
 end

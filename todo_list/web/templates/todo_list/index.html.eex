@@ -1,11 +1,18 @@
 <h1>My TodoList</h1>
 
+<%= form_for @changeset, todo_list_path(@conn, :create), fn f -> %>
+  <div class="form-group">
+    <%= text_input f, :description, placeholder: "Description", class: "form-control" %>
+  </div>
+  <%= submit "Add Task", class: "btn btn-primary" %>
+<% end %>
+
 <table class="table">
   <%= for task <- @tasks do %>
     <tr>
       <td><%= task.description %></td>
-      <td><%= button("done", method: "get", class: "btn",
-        to: todo_list_path(@conn, :done, task.id)) %></td>
+      <td><%= button("done", method: :delete, class: "btn btn-default",
+        to: todo_list_path(@conn, :delete, task.id)) %></td>
     </tr>
   <% end %>
 </table>

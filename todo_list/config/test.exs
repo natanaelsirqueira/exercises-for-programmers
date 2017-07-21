@@ -16,4 +16,5 @@ config :todo_list, TodoList.Repo,
   password: "postgres",
   database: "todo_list_test",
   hostname: "localhost",
+  port: 5453,
   pool: Ecto.Adapters.SQL.Sandbox
