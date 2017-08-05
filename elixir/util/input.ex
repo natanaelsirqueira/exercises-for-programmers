@@ -1,4 +1,8 @@
 defmodule Input do
+  def string(text) do
+    IO.gets(text) |> String.trim
+  end
+
   def int(text) do
     IO.gets(text) |> Integer.parse |> validate_number
   end
@@ -13,10 +17,6 @@ defmodule Input do
 
   def float_p(text) do
     float(text) |> validate_positive
-  end
-
-  def string(text) do
-    IO.gets(text) |> String.trim
   end
 
   defp validate_number({x, _}) when is_number(x), do: x
