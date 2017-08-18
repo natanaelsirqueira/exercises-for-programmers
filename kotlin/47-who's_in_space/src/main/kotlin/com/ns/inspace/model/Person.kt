@@ -1,4 +1,4 @@
-package com.ns.model
+package com.ns.inspace.model
 
 import tornadofx.*
 import javax.json.JsonObject

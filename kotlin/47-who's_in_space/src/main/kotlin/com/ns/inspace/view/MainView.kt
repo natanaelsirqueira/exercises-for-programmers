@@ -1,12 +1,12 @@
-package com.ns.view
+package com.ns.inspace.view
 
-import com.ns.control.MyController
-import com.ns.model.Person
+import com.ns.inspace.control.MyController
+import com.ns.inspace.model.Person
 import tornadofx.*
 
 class MainView : View("People in Space") {
-    val myController: MyController by inject()
-    private val persons = myController.fetcthPeople()
+    private val myController: MyController by inject()
+    private val persons = myController.fetchPeople()
 
     override val root = tableview(persons) {
         column("Name", Person::name)

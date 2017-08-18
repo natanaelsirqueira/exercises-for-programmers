@@ -1,13 +1,11 @@
-package com.ns.app
+package com.ns.inspace.app
 
-import com.ns.control.MyController
-import com.ns.view.MainView
+import com.ns.inspace.view.MainView
 import javafx.application.Application
 import tornadofx.*
 
 class MyApp: App(MainView::class, Styles::class) {
-    val api: Rest by inject()
-    val myController: MyController by inject()
+    private val api: Rest by inject()
 
     init {
         api.baseURI = "http://api.open-notify.org"

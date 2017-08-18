@@ -1,12 +1,12 @@
-package com.ns.control
+package com.ns.inspace.control
 
-import com.ns.model.Person
+import com.ns.inspace.model.Person
 import javafx.collections.ObservableList
 import tornadofx.*
 
 class MyController : Controller() {
-    val api: Rest by inject()
+    private val api: Rest by inject()
 
-    fun fetcthPeople(): ObservableList<Person>  =
+    fun fetchPeople(): ObservableList<Person> =
             api.get("astros.json").one().getJsonArray("people").toModel()
 }

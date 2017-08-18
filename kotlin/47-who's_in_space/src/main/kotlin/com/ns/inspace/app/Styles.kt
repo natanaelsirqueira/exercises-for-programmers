@@ -1,4 +1,4 @@
-package com.ns.app
+package com.ns.inspace.app
 
 import javafx.scene.text.FontWeight
 import tornadofx.Stylesheet
