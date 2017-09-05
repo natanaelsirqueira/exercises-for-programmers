@@ -10,8 +10,6 @@ defmodule TableFormatter do
          puts_one_line_in_columns(headers, format)
          IO.puts(separator(column_widths))
          puts_in_columns(data_by_columns, format)
-
-         IO.inspect data_by_columns
     end
   end
 
