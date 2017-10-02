@@ -1,0 +1,7 @@
+Employee Id,First Name,Last Name,Position,Separation Date
+1,John,Johnson,Manager,2016-12-31
+2,Tou,Xiong,Software Engineer,2016-10-05
+3,Michaela,Michaelson,District Manager,2015-12-19
+4,Jake,Jacobson,Programmer,--
+5,Jacquelyn,Jackson,DBA,2017-05-20
+6,Sally,Weber,Web Developer,2015-12-18

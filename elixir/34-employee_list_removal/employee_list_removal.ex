@@ -2,7 +2,7 @@ Code.load_file("../util/input.ex")
 
 defmodule EmployeeListRemoval do
   import Input
-  
+
   def run do
     list = read_lines()
     print_names(list)

@@ -1,22 +1,22 @@
 defmodule Input do
-  def string(text) do
-    IO.gets(text) |> String.trim
+  def string(prompt) do
+    IO.gets(prompt) |> String.trim
   end
 
-  def int(text) do
-    IO.gets(text) |> Integer.parse |> validate_number
+  def int(prompt) do
+    IO.gets(prompt) |> Integer.parse |> validate_number
   end
 
-  def int_p(text) do
-    int(text) |> validate_positive
+  def int_p(prompt) do
+    int(prompt) |> validate_positive
   end
 
-  def float(text) do
-    IO.gets(text) |> Float.parse |> validate_number
+  def float(prompt) do
+    IO.gets(prompt) |> Float.parse |> validate_number
   end
 
-  def float_p(text) do
-    float(text) |> validate_positive
+  def float_p(prompt) do
+    float(prompt) |> validate_positive
   end
 
   defp validate_number({x, _}) when is_number(x), do: x
