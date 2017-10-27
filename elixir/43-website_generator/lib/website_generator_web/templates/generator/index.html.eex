@@ -1,0 +1,34 @@
+<div class="jumbotron">
+  <h2><%= gettext "Welcome to %{name}!", name: "WebsiteGenerator" %></h2>
+  <p class="lead">A tool for creating the skeleton of your website.</p>
+</div>
+
+<div class="row marketing">
+  <div class="col-lg-6">
+    <h4>Website configuration</h4>
+    <%= form_for @changeset, generator_path(@conn, :create), [as: :site], fn f -> %>
+      <div class="form-group">
+        <%= label f, :site_name, class: "control-label" %>
+        <%= text_input f, :site_name, placeholder: "Site name", class: "form-control" %>
+        <%= error_tag f, :site_name %>
+      </div>
+      <div class="form-group">
+        <%= label f, :author, class: "control-label" %>
+        <%= text_input f, :author, placeholder: "Author name", class: "form-control" %>
+        <%= error_tag f, :author %>
+      </div>
+      <div class="form-group">
+        <%= label f, :css, class: "control-label" do %>
+          <%= checkbox(f, :css)%> CSS
+        <% end %>
+        <%= label f, :js, class: "control-label" do %>
+          <%= checkbox(f, :js)%> JS
+        <% end %>
+      </div>
+      <div class="form-group">
+        <%= submit "Create", class: "btn btn-primary" %>
+        <%= link "Reset", to: "/generate", class: "btn btn-default" %>
+      </div>
+    <% end %>
+  </div>
+</div>

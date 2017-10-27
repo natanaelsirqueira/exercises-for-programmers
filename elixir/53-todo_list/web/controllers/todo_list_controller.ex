@@ -1,5 +1,6 @@
 defmodule TodoList.TodoListController do
   use TodoList.Web, :controller
+
   alias TodoList.Task
 
   def index(conn, _params) do
