@@ -1,21 +1,8 @@
 # Employees
 
-**TODO: Add description**
+To start the application:
 
-## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `employees` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:employees, "~> 0.1.0"}
-  ]
-end
-```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/employees](https://hexdocs.pm/employees).
-
+  * Install Redis following the instructions in https://redis.io/topics/quickstart
+  * Start Redis Server with  `redis-server`
+  * Open another terminal window and run `iex -S mix` inside the project directory
+  * Inside iex run `Employees.Records.run()`

@@ -40,8 +40,8 @@ defmodule Employees.Records do
     R  - Reset to default visualization.
     Your action: \
     """
-    |> string()
-    |> String.upcase
+    |> read_string()
+    |> String.upcase()
     |> action(state)
     |> init()
   end
@@ -59,13 +59,13 @@ defmodule Employees.Records do
   def action("LD", state), do: list(state)
 
   def action("S", state) do
-    sort_field = string("Sort data by: ")
+    sort_field = read_string("Sort data by: ")
 
     %{state | sort_by: sort_field}
   end
 
   def action("F", state) do
-    search_string = string("Enter a search string: ")
+    search_string = read_string("Enter a search string: ")
 
     %{state | filter_by: (if search_string == "", do: nil, else: search_string)}
   end
@@ -75,14 +75,15 @@ defmodule Employees.Records do
   def action("R" , state), do: %{state | sort_by: "Employee Id", filter_by: nil}
 
   def print_table(records) do
-    TableFormatter.print_table_for_columns(records,
-      ["Employee Id", "First Name", "Last Name", "Position", "Separation Date"])
+    headers = ["Employee Id", "First Name", "Last Name", "Position", "Separation Date"]
+
+    TableFormatter.print_table_for_columns(records, headers)
   end
 
   def sort_by(records, sort_field) do
     sort_field =
       sort_field
-      |> String.split
+      |> String.split()
       |> Enum.map(&String.capitalize(&1))
       |> Enum.join(" ")
 
@@ -90,21 +91,22 @@ defmodule Employees.Records do
   end
 
   def filter_by(records, nil), do: records
+
   def filter_by(records, search_string) do
-    search_string = String.downcase(search_string)
     Enum.filter(records, fn employee ->
       Map.keys(employee)
       |> Enum.map(&employee[&1])
       |> Enum.any?(fn field ->
-        String.downcase(field) =~ search_string
+        String.downcase(field) =~ String.downcase(search_string)
       end)
     end)
   end
 
   def only_past_six_months(records, false), do: records
+
   def only_past_six_months(records, true) do
     six_months_ago =
-      Date.utc_today
+      Date.utc_today()
       |> Date.add(6 * 30 * -1)
 
     records
@@ -144,9 +146,7 @@ defmodule Employees.Records do
 
   def flush(conn), do: delete(conn, "employees:*")
 
-  defp string(prompt) do
-    IO.gets(prompt) |> String.trim
-  end
+  defp read_string(prompt), do: IO.gets(prompt) |> String.trim()
 
   defp get_all(conn) do
     {:ok, keys} = Redix.command(conn, ~w[KEYS employees:*])
@@ -161,6 +161,7 @@ defmodule Employees.Records do
   end
 
   defp create_map([], acc), do: acc
+
   defp create_map([ k , v | t ], acc) do
     k = String.split(k, "_") |> Enum.map(&String.capitalize(&1)) |> Enum.join(" ")
     acc = Map.put(acc, k, v)
