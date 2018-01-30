@@ -1,0 +1,20 @@
+<h4>10 most frequent words in <%= @filename %>:</h4>
+
+<% frequencies = Poison.encode!(@frequencies) %>
+<%= raw Chartkick.bar_chart frequencies %>
+
+<%= link "Back", to: "/word-counter", class: "btn btn-default" %>
+
+<ul>
+<%= Enum.each(@frequencies, fn [word, frequency] -> %>
+  <li>
+    Frequency
+    <%= word %> -> <%= frequency %>
+  </li>
+<% end) %>
+</ul>
+
+<!--
+<%= form_for @conn, word_counter_path(@conn, :create), [class: "form form-inline"], fn f -> %>
+  <%= submit "See all frequencies", class: "btn btn-default" %>
+<% end %>
