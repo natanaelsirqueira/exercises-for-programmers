@@ -12,7 +12,7 @@ defmodule WordFrequencyFinderWeb.WordCounterController do
   end
 
   def create(conn, %{"file" => %Plug.Upload{path: path, filename: filename}}) do
-    frequencies = WordFrequencyFinder.run(path) |> Enum.take(10) |> IO.inspect
+    frequencies = WordFrequencyFinder.run(path) |> Enum.take(10)
 
     conn
     |> Plug.Conn.assign(:frequencies, frequencies)
