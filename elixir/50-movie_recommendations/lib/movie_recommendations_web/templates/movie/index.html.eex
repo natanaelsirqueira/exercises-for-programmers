@@ -1,0 +1,36 @@
+<div>
+  <div>
+    <h1><%= @movie["Title"] %> (<%= @movie["Year"] %>)</h1>
+  </div>
+  <div style="float: left;">
+    <label>Director:</label> <%= @movie["Director"] %> <br/>
+    <label>Writer (s):</label>
+      <%= @movie["Writer"] |> List.first() %>
+      <%= if length(@movie["Writer"]) > 1 do %>
+        <a href="javascript:void(0)" data-toggle="popover" data-content="<%= Enum.join(@movie["Writer"], ", ") %>">
+          ... more
+        </a>
+      <%= end %> <br/>
+    <label>Actors:</label>
+      <%= @movie["Actors"] |> Enum.slice(0..1) |> Enum.join(", ") %>
+      <%= if length(@movie["Actors"]) > 2 do %>
+        <a href="javascript:void(0)" data-toggle="popover" data-content="<%= Enum.join(@movie["Actors"], ", ") %>">
+          ... more
+        </a>
+      <%= end %> <br/>
+    <label>Country:</label> <%= @movie["Country"] %> <br/>
+    <label>Release Date:</label> <%= @movie["Released"] %> <br/>
+    <label>Genre:</label> <%= @movie["Genre"] %> <br/>
+    <label>Rating:</label> <%= @movie["Rated"] %> <br/>
+    <label>Running Time:</label> <%= @movie["Runtime"] %> <br/>
+    <a href="javascript:void(0)" data-toggle="popover" data-content="<%= @movie["Plot"] %>">
+      Click to see the plot
+    </a>
+    <% ratings = Poison.encode!(@movie["Ratings"]) %>
+    <%= raw Chartkick.column_chart(ratings, width: "300px") %>
+  </div>
+  <div style="float: right;">
+    <img src="<%= @movie["Poster"] %>"/>
+    <h4 style="margin: 15px auto;"><%= @movie["Recomendation"] %></h4>
+  </div>
+</div>
