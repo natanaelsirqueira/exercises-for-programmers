@@ -1,0 +1,11 @@
+<h1>Movies found: </h1>
+<ul>
+  <%= for result <- @results do %>
+    <li>
+      <h4>
+        <a href="/movie-recommendations/movie/<%= result["imdbID"]%>"><%= result["Title"]%></a>
+        (<%= result["Year"] %>)
+      </h4>
+    </li>
+  <% end %>
+</ul>
