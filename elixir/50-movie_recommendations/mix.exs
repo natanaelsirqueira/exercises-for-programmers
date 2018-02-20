@@ -41,6 +41,7 @@ defmodule MovieRecommendations.Mixfile do
       {:tesla, "~> 0.10.0"},
       {:poison, "~> 2.0", override: true},
       {:chartkick, "~> 0.0.2"},
+      {:cachex, "~> 2.1"}
     ]
   end
 end

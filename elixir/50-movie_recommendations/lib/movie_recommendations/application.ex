@@ -10,6 +10,7 @@ defmodule MovieRecommendations.Application do
     children = [
       # Start the endpoint when the application starts
       supervisor(MovieRecommendationsWeb.Endpoint, []),
+      worker(Cachex, [:movie_search, [], []])
       # Start your own worker by calling: MovieRecommendations.Worker.start_link(arg1, arg2, arg3)
       # worker(MovieRecommendations.Worker, [arg1, arg2, arg3]),
     ]

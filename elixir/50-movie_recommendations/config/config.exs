@@ -7,6 +7,8 @@ use Mix.Config
 
 config :movie_recommendations, :api_key, "8a6dfe91"
 
+config :movie_recommendations, :cache_key_ttl, :timer.hours(24)
+
 # Configures the endpoint
 config :movie_recommendations, MovieRecommendationsWeb.Endpoint,
   url: [host: "localhost"],
