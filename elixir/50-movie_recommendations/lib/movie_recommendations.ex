@@ -10,6 +10,9 @@ defmodule MovieRecommendations do
 
   @api_key Application.get_env(:movie_recommendations, :api_key)
 
+  @tmdb_base_url "http://api.themoviedb.org/3/movie"
+  @tmdb_api_key Application.get_env(:tmdb, :api_key)
+
   @doc """
   Returns the search results.
 
@@ -41,6 +44,20 @@ defmodule MovieRecommendations do
   end
 
   @doc """
+  Returns the movie trailer.
+
+  ## Examples
+
+      iex> response = MovieRecommendations.trailer("tt0137523")
+      iex> [trailer | _] = response.body["results"]
+      iex> trailer["type"]
+      "Trailer"
+  """
+  def trailer(imdb_id) do
+    get("#{@tmdb_base_url}/#{imdb_id}/videos?api_key=#{@tmdb_api_key}")
+  end
+
+  @doc """
   Returns a list of search results.
 
   ## Examples
@@ -51,7 +68,7 @@ defmodule MovieRecommendations do
   """
   def search_movie(title) do
     with %Tesla.Env{status: 200, body: %{"Search" => results}} <- movie(title) do
-      results = Enum.filter(results, & &1["Type"] == "movie")
+      results = Enum.filter(results, &(&1["Type"] == "movie"))
 
       {:ok, results}
     else
@@ -92,12 +109,24 @@ defmodule MovieRecommendations do
 
       data =
         data
+        |> Map.put("Trailer", find_trailer(imdb_id))
         |> Map.put("Ratings", ratings)
         |> Map.put("Recomendation", recommendation)
         |> Map.update!("Writer", &String.split(&1, ", "))
         |> Map.update!("Actors", &String.split(&1, ", "))
 
       {:ok, data}
+    else
+      %Tesla.Env{status: 200, body: %{"Error" => reason}} ->
+        {:error, reason}
+    end
+  end
+
+  defp find_trailer(imdb_id) do
+    with %Tesla.Env{status: 200, body: %{"results" => results}} <- trailer(imdb_id) do
+      [trailer | _] = Enum.filter(results, &(&1["type"] == "Trailer"))
+
+      trailer
     else
       %Tesla.Env{status: 200, body: %{"Error" => reason}} ->
         {:error, reason}

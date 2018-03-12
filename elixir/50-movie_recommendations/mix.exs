@@ -42,6 +42,7 @@ defmodule MovieRecommendations.Mixfile do
       {:poison, "~> 2.0", override: true},
       {:chartkick, "~> 0.0.2"},
       {:cachex, "~> 2.1"}
+      {:tmdb, git: "https://github.com/seanabrahams/elixir-tmdb.git"},
     ]
   end
 end

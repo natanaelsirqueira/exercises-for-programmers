@@ -5,7 +5,9 @@
 # is restricted to this project.
 use Mix.Config
 
-config :movie_recommendations, :api_key, "8a6dfe91"
+config :tmdb, api_key: "a63546d0027b846d36473ac45889a8d1"
+
+config :movie_recommendations, api_key: "8a6dfe91"
 
 config :movie_recommendations, :cache_key_ttl, :timer.hours(24)
 
